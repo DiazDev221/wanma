@@ -75,7 +75,8 @@ class HelpScreen extends StatelessWidget {
             title: 'Enregistrez vos clients',
             text:
                 'Onglet Clients. Le téléphone est conservé comme texte. Un '
-                'numéro déjà présent déclenche une confirmation explicite.',
+                'numéro déjà présent déclenche une confirmation explicite. '
+                'Touchez le numéro pour préparer un appel dans le composeur.',
           ),
           const SizedBox(height: 10),
           _StepTile(

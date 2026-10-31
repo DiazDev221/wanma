@@ -8,6 +8,7 @@ import '../../../state/app_state.dart';
 import '../../widgets/app_card.dart';
 import '../../widgets/app_feedback.dart';
 import '../../widgets/avatars.dart';
+import '../../widgets/client_call_button.dart';
 import '../../widgets/empty_state.dart';
 import '../../widgets/movement_date_header.dart';
 import '../../widgets/movement_tile.dart';
@@ -88,6 +89,7 @@ class ClientDetailScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Fiche client'),
         actions: <Widget>[
+          ClientCallButton(phone: client.phone, clientName: client.fullName),
           PopupMenuButton<String>(
             tooltip: 'Plus d’actions',
             onSelected: (value) {
@@ -193,30 +195,19 @@ class ClientDetailScreen extends StatelessWidget {
                                       ?.copyWith(fontSize: 20),
                                 ),
                                 const SizedBox(height: 5),
-                                Row(
-                                  children: <Widget>[
-                                    const Icon(
-                                      Icons.phone_outlined,
-                                      size: 15,
-                                      color: AppColors.muted,
-                                    ),
-                                    const SizedBox(width: 5),
-                                    Expanded(
-                                      child: Text(
-                                        client.phone,
-                                        maxLines: 1,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyMedium
-                                            ?.copyWith(
-                                              color: AppColors.muted,
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.w500,
-                                            ),
+                                ClientCallButton(
+                                  phone: client.phone,
+                                  clientName: client.fullName,
+                                  showNumber: true,
+                                  phoneStyle: Theme.of(context)
+                                      .textTheme
+                                      .bodyMedium
+                                      ?.copyWith(
+                                        color: AppColors.muted,
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w500,
                                       ),
-                                    ),
-                                  ],
+                                  iconSize: 14,
                                 ),
                               ],
                             ),
@@ -350,6 +341,16 @@ class ClientDetailScreen extends StatelessWidget {
                         label: 'Téléphone',
                         value: client.phone,
                         icon: Icons.phone_outlined,
+                        onTap: () => callClient(
+                          context,
+                          phone: client.phone,
+                          clientName: client.fullName,
+                        ),
+                        trailing: const Icon(
+                          Icons.phone_in_talk_outlined,
+                          size: 17,
+                          color: AppColors.cobalt,
+                        ),
                       ),
                       InfoRow(
                         label: 'Enregistré le',

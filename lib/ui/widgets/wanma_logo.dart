@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 
 import '../../core/constants/app_constants.dart';
 
-/// Symbole Wanma : une boutique-entrepôt ambre sur une tuile encre.
+/// Symbole Wanma : un œil ouvert sous le toit d’une boutique.
+///
+/// « Wanma » signifie « montre-moi » en wolof. L’œil évoque la transparence
+/// du suivi, tandis que le toit rappelle le commerce de proximité.
 class WanmaLogo extends StatelessWidget {
   const WanmaLogo({
     super.key,
@@ -19,7 +22,7 @@ class WanmaLogo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Semantics(
-      label: 'Logo Wanma, boutique et stock',
+      label: 'Logo Wanma, un œil ouvert sur votre commerce',
       image: true,
       child: Container(
         width: size,
@@ -44,7 +47,7 @@ class WanmaLogo extends StatelessWidget {
             color: backgroundColor ?? AppColors.ink,
             alignment: Alignment.center,
             child: Icon(
-              Icons.store_rounded,
+              Icons.visibility_rounded,
               color: AppColors.amber,
               size: size * 0.58,
             ),

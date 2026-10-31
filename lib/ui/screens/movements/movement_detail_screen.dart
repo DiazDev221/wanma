@@ -8,6 +8,7 @@ import '../../../state/app_state.dart';
 import '../../widgets/app_card.dart';
 import '../../widgets/app_feedback.dart';
 import '../../widgets/badges.dart';
+import '../../widgets/client_call_button.dart';
 import '../../widgets/empty_state.dart';
 import '../../widgets/form_sections.dart';
 import '../clients/client_detail_screen.dart';
@@ -326,6 +327,23 @@ class MovementDetailScreen extends StatelessWidget {
                           label: 'Client',
                           value: movement.clientFullName,
                           icon: Icons.person_outline_rounded,
+                        ),
+                      if (movement.isExit &&
+                          movement.clientPhone?.isNotEmpty == true)
+                        InfoRow(
+                          label: 'Téléphone',
+                          value: movement.clientPhone!,
+                          icon: Icons.phone_outlined,
+                          onTap: () => callClient(
+                            context,
+                            phone: movement.clientPhone!,
+                            clientName: movement.clientFullName,
+                          ),
+                          trailing: const Icon(
+                            Icons.phone_in_talk_outlined,
+                            size: 17,
+                            color: AppColors.cobalt,
+                          ),
                         ),
                       if (movement.isExit) ...<Widget>[
                         InfoRow(

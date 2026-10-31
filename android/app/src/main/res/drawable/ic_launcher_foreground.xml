@@ -1,31 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Boutique-entrepôt Wanma, symbole de commerce et de gestion du stock. -->
+<!-- Logo Wanma : un œil ouvert, « montre-moi » en wolof, sous un toit de boutique. -->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="108dp"
     android:height="108dp"
     android:viewportWidth="108"
     android:viewportHeight="108">
-    <!-- Toit -->
+    <!-- Toit / sourcil -->
+    <path
+        android:fillColor="@android:color/transparent"
+        android:strokeColor="#F7B733"
+        android:strokeWidth="3.2"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M31.64,35.99 L54,29.46 L76.36,35.99" />
+    <!-- Œil -->
     <path
         android:fillColor="#F7B733"
-        android:pathData="M29.04,48.8 L54,29.04 L78.96,48.8 L72.2,52.96 L54,38.4 L35.8,52.96 Z" />
-    <!-- Corps -->
-    <path
-        android:fillColor="#F7B733"
-        android:pathData="M38.66,46.2 L69.34,46.2 A1.82,1.82 0 0 1 71.16,48.02 L71.16,75.58 A1.82,1.82 0 0 1 69.34,77.4 L38.66,77.4 A1.82,1.82 0 0 1 36.84,75.58 L36.84,48.02 A1.82,1.82 0 0 1 38.66,46.2 Z" />
-    <!-- Porte -->
+        android:pathData="M20.67,59 C34.39,39.38 75.61,39.38 87.33,59 C75.61,78.62 34.39,78.62 20.67,59 Z" />
+    <!-- Iris -->
     <path
         android:fillColor="#0E1A2B"
-        android:pathData="M50.1,56.6 L57.9,56.6 A1.3,1.3 0 0 1 59.2,57.9 L59.2,77.4 L48.8,77.4 L48.8,57.9 A1.3,1.3 0 0 1 50.1,56.6 Z" />
-    <!-- Fenêtres -->
+        android:pathData="M54,43.6 A15.4,15.4 0 1,1 54,74.4 A15.4,15.4 0 1,1 54,43.6 Z" />
+    <!-- Pupille -->
     <path
-        android:fillColor="#0E1A2B"
-        android:pathData="M41.26,57.64 L44.38,57.64 A0.78,0.78 0 0 1 45.16,58.42 L45.16,64.66 A0.78,0.78 0 0 1 44.38,65.44 L41.26,65.44 A0.78,0.78 0 0 1 40.48,64.66 L40.48,58.42 A0.78,0.78 0 0 1 41.26,57.64 Z" />
+        android:fillColor="#FFCD60"
+        android:pathData="M54,52.46 A6.54,6.54 0 1,1 54,65.54 A6.54,6.54 0 1,1 54,52.46 Z" />
+    <!-- Reflet -->
     <path
-        android:fillColor="#0E1A2B"
-        android:pathData="M63.62,57.64 L66.74,57.64 A0.78,0.78 0 0 1 67.52,58.42 L67.52,64.66 A0.78,0.78 0 0 1 66.74,65.44 L63.62,65.44 A0.78,0.78 0 0 1 62.84,64.66 L62.84,58.42 A0.78,0.78 0 0 1 63.62,57.64 Z" />
-    <!-- Quai -->
-    <path
-        android:fillColor="#F7B733"
-        android:pathData="M33.2,72.72 L74.8,72.72 A1.04,1.04 0 0 1 75.84,73.76 L75.84,76.36 A1.04,1.04 0 0 1 74.8,77.4 L33.2,77.4 A1.04,1.04 0 0 1 32.16,76.36 L32.16,73.76 A1.04,1.04 0 0 1 33.2,72.72 Z" />
+        android:fillColor="#FFF9EB"
+        android:pathData="M51.26,56.36 A1.79,1.79 0 1,1 54.84,56.36 A1.79,1.79 0 1,1 51.26,56.36 Z" />
 </vector>

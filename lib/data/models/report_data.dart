@@ -18,6 +18,40 @@ class ReportPeriod {
   }
 }
 
+/// Synthèse des ventes et des encaissements d'un produit sur une période.
+class ProductSalesStats {
+  const ProductSalesStats({
+    required this.period,
+    required this.collectedAmount,
+    required this.collectionCount,
+    required this.creditAmount,
+    required this.creditCount,
+    required this.unpaidCreditAmount,
+    required this.outstandingCreditAmount,
+    required this.outstandingCreditCount,
+    required this.saleCount,
+  });
+
+  final ReportPeriod period;
+
+  /// Argent réellement reçu sur la période (ventes comptant et crédits réglés).
+  final int collectedAmount;
+  final int collectionCount;
+
+  /// Ventes à crédit réalisées sur la période, réglées ou non.
+  final int creditAmount;
+  final int creditCount;
+
+  /// Part des crédits de la période encore due par les clients.
+  final int unpaidCreditAmount;
+
+  /// Crédits encore en cours pour ce produit, toutes périodes confondues.
+  final int outstandingCreditAmount;
+  final int outstandingCreditCount;
+
+  final int saleCount;
+}
+
 /// Ligne « produit le plus sorti » d'un rapport.
 class ProductReportLine {
   const ProductReportLine({

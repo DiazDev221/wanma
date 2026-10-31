@@ -147,6 +147,8 @@ class InfoRow extends StatelessWidget {
     this.valueColor,
     this.icon,
     this.isLast = false,
+    this.onTap,
+    this.trailing,
   });
 
   final String label;
@@ -154,42 +156,57 @@ class InfoRow extends StatelessWidget {
   final Color? valueColor;
   final IconData? icon;
   final bool isLast;
+  final VoidCallback? onTap;
+  final Widget? trailing;
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 11),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              if (icon != null) ...<Widget>[
-                Icon(icon, size: 17, color: AppColors.muted),
-                const SizedBox(width: 10),
-              ],
-              Expanded(
-                child: Text(
-                  label,
-                  style: Theme.of(context).textTheme.bodySmall
-                      ?.copyWith(fontSize: 13),
-                ),
-              ),
-              const SizedBox(width: 12),
-              Flexible(
-                flex: 2,
-                child: Text(
-                  value,
-                  textAlign: TextAlign.end,
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    fontWeight: FontWeight.w700,
-                    color: valueColor ?? AppColors.ink,
+    final row = Padding(
+      padding: const EdgeInsets.symmetric(vertical: 11),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          if (icon != null) ...<Widget>[
+            Icon(icon, size: 17, color: AppColors.muted),
+            const SizedBox(width: 10),
+          ],
+          Expanded(
+            child: Text(
+              label,
+              style: Theme.of(context).textTheme.bodySmall
+                  ?.copyWith(fontSize: 13),
+            ),
+          ),
+          const SizedBox(width: 12),
+          Flexible(
+            flex: 2,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: <Widget>[
+                Flexible(
+                  child: Text(
+                    value,
+                    textAlign: TextAlign.end,
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      fontWeight: FontWeight.w700,
+                      color: valueColor ?? AppColors.ink,
+                    ),
                   ),
                 ),
-              ),
-            ],
+                if (trailing != null) ...<Widget>[
+                  const SizedBox(width: 6),
+                  trailing!,
+                ],
+              ],
+            ),
           ),
-        ),
+        ],
+      ),
+    );
+
+    return Column(
+      children: <Widget>[
+        if (onTap == null) row else InkWell(onTap: onTap, child: row),
         if (!isLast) const Divider(height: 1),
       ],
     );

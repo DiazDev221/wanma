@@ -454,6 +454,13 @@ class AppState extends ChangeNotifier {
     movements: _movements,
   );
 
+  ProductSalesStats productSalesStats(int productId, ReportPeriod period) =>
+      AnalyticsService.productSalesStats(
+        productId: productId,
+        movements: _movements,
+        period: period,
+      );
+
   ReportData todayReport() => buildReport(AnalyticsService.periodForToday());
 
   // ---------------------------------------------------------------------------

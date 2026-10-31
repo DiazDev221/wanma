@@ -72,6 +72,67 @@ abstract final class AnalyticsService {
     );
   }
 
+  /// Encaisse et crédits d'un produit sur une période donnée.
+  ///
+  /// Une vente comptant est comptée à sa date de sortie. Un crédit est compté
+  /// à sa date de règlement, afin que le montant encaissé reflète l'argent
+  /// réellement reçu. Les crédits encore dus restent visibles séparément.
+  static ProductSalesStats productSalesStats({
+    required int productId,
+    required List<StockMovement> movements,
+    required ReportPeriod period,
+  }) {
+    var collectedAmount = 0;
+    var collectionCount = 0;
+    var creditAmount = 0;
+    var creditCount = 0;
+    var unpaidCreditAmount = 0;
+    var outstandingCreditAmount = 0;
+    var outstandingCreditCount = 0;
+    var saleCount = 0;
+
+    for (final movement in movements) {
+      if (!movement.isExit || movement.productId != productId) continue;
+
+      if (movement.isCreditPending) {
+        outstandingCreditAmount += movement.totalAmount;
+        outstandingCreditCount++;
+      }
+      if (!movement.isActive) continue;
+
+      if (period.contains(movement.movementDate)) {
+        saleCount++;
+        if (movement.isCreditSale) {
+          creditAmount += movement.totalAmount;
+          creditCount++;
+          if (movement.isCreditPending) {
+            unpaidCreditAmount += movement.totalAmount;
+          }
+        }
+      }
+
+      if (movement.isPaid) {
+        final receivedAt = movement.paidAt ?? movement.movementDate;
+        if (period.contains(receivedAt)) {
+          collectedAmount += movement.totalAmount;
+          collectionCount++;
+        }
+      }
+    }
+
+    return ProductSalesStats(
+      period: period,
+      collectedAmount: collectedAmount,
+      collectionCount: collectionCount,
+      creditAmount: creditAmount,
+      creditCount: creditCount,
+      unpaidCreditAmount: unpaidCreditAmount,
+      outstandingCreditAmount: outstandingCreditAmount,
+      outstandingCreditCount: outstandingCreditCount,
+      saleCount: saleCount,
+    );
+  }
+
   static ReportData buildReport({
     required ReportPeriod period,
     required List<Product> products,

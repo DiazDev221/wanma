@@ -43,6 +43,9 @@ aucun serveur, aucune synchronisation et aucune permission Internet.
 - Tri par nom, quantité, prix ou date d'ajout, et filtre des produits en stock
   faible ou épuisé.
 - Écran dédié aux alertes de stock bas.
+- Fiche produit avec le montant encaissé sur une période (aujourd’hui,
+  semaine, mois ou période personnalisée) et le total des crédits, avec accès
+  direct aux crédits encore en cours pour ce produit.
 - La modification d'un produit ne modifie jamais son stock.
 
 ### Clients
@@ -50,6 +53,8 @@ aucun serveur, aucune synchronisation et aucune permission Internet.
 - Fiche client avec prénom, nom et téléphone conservé comme texte (les zéros
   initiaux et les espaces sont préservés).
 - Recherche par nom ou téléphone.
+- Appel d'un client depuis sa fiche, sa ligne dans la liste ou le détail d'une
+  sortie : le composeur du téléphone s'ouvre avec le numéro prérempli.
 - Détection des numéros déjà enregistrés avec confirmation explicite avant
   d'accepter un doublon.
 - Historique des sorties de stock par client.
@@ -189,7 +194,8 @@ produit ouvre sa fiche, son stock et ses mouvements.
 3. Enregistrer.
 
 Si le numéro existe déjà, Wanma demande une confirmation avant de continuer.
-La fiche client permet de consulter ses sorties et son total acheté.
+La fiche client permet de consulter ses sorties et son total acheté. Touchez
+le numéro ou l'icône téléphone pour préparer un appel dans le composeur.
 
 ### 4. Entrée de stock
 
@@ -298,6 +304,9 @@ Excel en français. Les classeurs Excel et les PDF sont générés sans réseau.
   `android.permission.INTERNET`.
 - **Aucun service cloud** : pas de Firebase, pas de client HTTP, pas de compte.
 - **Base privée** : SQLite est stocké dans l'espace privé de l'application.
+- **Appels sans permission spéciale** : Wanma ouvre le composeur Android avec
+  le numéro prérempli ; il n'émet jamais l'appel à votre place et ne demande
+  pas la permission `CALL_PHONE`.
 - **Code PIN optionnel** :
   - 4 chiffres ;
   - stockage d'un sel aléatoire et d'un condensat **SHA-256** dans
@@ -326,17 +335,19 @@ flutter analyze
 
 Résultat attendu :
 
-- **47 tests** répartis dans 6 fichiers ;
+- **51 tests** répartis dans 8 fichiers ;
 - `flutter analyze` : **No issues found!**
 
 | Fichier | Couverture |
 | --- | --- |
 | `test/inventory_scenarios_test.dart` | Scénarios 1 à 11 : produits, stock initial, entrées, sorties, survente, atomicité client, prix historiques, ventes à crédit et règlement, annulations, suppressions, doublons de téléphone. |
 | `test/analytics_search_test.dart` | Scénarios 12 et 13 : recherche sans accents, filtres, tableau de bord, rapports, crédits à recouvrer et regroupement des opérations par date. |
+| `test/product_sales_stats_test.dart` | Encaissements et crédits d’un produit : période, date réelle de règlement d’un crédit, annulations et crédits en cours. |
 | `test/backup_scenarios_test.dart` | Scénario 14 : création, validation, corruption, restauration et rechargement. |
 | `test/persistence_security_export_test.dart` | Persistance après fermeture, PIN salé, verrouillage, exports CSV/Excel/PDF avec statut de paiement et absence de réseau. |
 | `test/database_migration_test.dart` | Migration des bases v1 et v2 vers le schéma courant, conservation des ventes à crédit existantes. |
 | `test/app_smoke_test.dart` | Rendu des cinq onglets et de douze écrans principaux sur petit écran (320 × 568) avec texte agrandi à 130 %. |
+| `test/phone_service_test.dart` | Préparation des appels : normalisation du numéro et refus des numéros sans chiffre. |
 
 Les tests utilisent une base SQLite FFI temporaire par test
 (`sqflite_common_ffi`) et des préférences simulées. Aucune donnée réelle n'est
@@ -418,6 +429,7 @@ lib/
 │   ├── export_service.dart      # CSV, Excel, PDF
 │   ├── file_transfer_service.dart
 │   ├── inventory_service.dart   # Transactions de stock et règlements crédit
+│   ├── phone_service.dart       # Appel via le composeur du téléphone
 │   └── security_service.dart    # PIN salé SHA-256
 ├── state/
 │   └── app_state.dart           # État central et actions
@@ -510,6 +522,8 @@ peuvent aussi être partagés directement depuis la feuille de partage Android.
 - Les exports CSV/Excel/PDF et les sauvegardes sont créés localement.
 - Wanma ne remplace pas une comptabilité officielle : il facilite le suivi
   quotidien du stock et des clients.
+- Le logo représente un œil ouvert sous le toit d’une boutique, en écho à
+  « wanma », qui signifie « montre-moi » en wolof.
 
 **Wanma 1.0.0** — gestion de stock hors ligne, faite pour les commerces de
 proximité.

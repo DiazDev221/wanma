@@ -9,6 +9,7 @@ import '../../../state/app_state.dart';
 import '../../widgets/app_card.dart';
 import '../../widgets/app_search_field.dart';
 import '../../widgets/avatars.dart';
+import '../../widgets/client_call_button.dart';
 import '../../widgets/empty_state.dart';
 import 'client_detail_screen.dart';
 import 'client_form_screen.dart';
@@ -272,16 +273,17 @@ class _ClientListItem extends StatelessWidget {
                     color: AppColors.ink,
                   ),
                 ),
-                const SizedBox(height: 3),
-                Text(
-                  client.phone,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
+                const SizedBox(height: 1),
+                ClientCallButton(
+                  phone: client.phone,
+                  clientName: client.fullName,
+                  showNumber: true,
+                  phoneStyle: const TextStyle(
                     fontSize: 9.5,
                     color: AppColors.muted,
                     fontWeight: FontWeight.w500,
                   ),
+                  iconSize: 12,
                 ),
               ],
             ),
